@@ -19,10 +19,11 @@ router.post('/post', function(req, res) {
 
 
 router.get('/', function(req, res) {
-  var user_id = req.param('id');
-  var token = req.param('token');
-  var geo = req.param('geo');  
-  console.log("GET request was made")
-  res.send(user_id + ' ' + token + ' ' + geo);
+  var user_id = req.query.id;
+  var token = req.query.token;
+  var geo = req.query.geo;
+  if(user_id || token || geo)
+    res.send(`ID: ${user_id}\nToken: ${token}\nGeo:${geo}`);
+  else res.send('The required Query Parameters were not provided -_-')
 });
 module.exports = router;
