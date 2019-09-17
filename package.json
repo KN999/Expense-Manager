@@ -1,0 +1,26 @@
+{
+  "name": "expensemanager",
+  "version": "1.0.0",
+  "description": "\"manages your expense\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KN999/Expense-Manager.git"
+  },
+  "keywords": [
+    "\"nodejs\"",
+    "\"expressjs\""
+  ],
+  "author": "\"Navin Kumar\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KN999/Expense-Manager/issues"
+  },
+  "homepage": "https://github.com/KN999/Expense-Manager#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
