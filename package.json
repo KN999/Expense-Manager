@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/KN999/Expense-Manager#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^1.19.2"
   }
 }

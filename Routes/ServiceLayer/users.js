@@ -1,4 +1,4 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
 router.get("/", function (req, res) {
@@ -27,4 +27,14 @@ router.post("/register", function(req,res) {
     console.log(registerUser);
     res.send("Registered Successfully");
 })
+
+router.post("/change", function(req, res) {
+    var name = req.body.name;
+    var value = req.body.value;
+
+    // fetch the details of the current user logged in 
+    // change the name field with value
+
+    res.send("Successfully changed");
+});
 module.exports = router;
