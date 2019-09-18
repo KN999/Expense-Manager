@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
+var DatabaseClient = require('../DatabaseLayer/users');
+
 router.get("/", function (req, res) {
     res.send("pong")
 })
@@ -11,8 +13,11 @@ router.post("/login", function(req, res) {
         password : req.body.password,
     };
 
+    DatabaseClient.ValidateUser(user, (result) => {
+        res.send(result);
+    });
+
     console.log(user);
-    res.send("Login Successfully!");
 });
 
 router.post("/register", function(req,res) {
@@ -24,17 +29,30 @@ router.post("/register", function(req,res) {
         currency : req.body.currency,
     };
 
+    DatabaseClient.CheckMobile(registerUser.mobileno, (result) => {
+        if (result.code === 302) { // Username is available
+            DatabaseClient.RegisterUser(registerUser, (result) => {
+                res.send(result);
+            });
+        }
+        else {
+            res.send(result);
+        }
+    });
+
     console.log(registerUser);
-    res.send("Registered Successfully");
 })
 
 router.post("/change", function(req, res) {
-    var name = req.body.name;
-    var value = req.body.value;
+    var user =  {
+        mobileno : req.body.mobile,
+        name : req.body.name,
+        value : req.body.value,
+    }
 
-    // fetch the details of the current user logged in 
-    // change the name field with value
-
-    res.send("Successfully changed");
+    DatabaseClient.ChangePassword(user, (result) => {
+        res.send(result);
+    });
+    
 });
 module.exports = router;
