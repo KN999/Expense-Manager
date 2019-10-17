@@ -1,20 +1,42 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
+var crypto = require('crypto');
 
-router.get("/", function(req, res) {
-    res.send("Transaction");
-});
+var DatabaseClient = require('../DatabaseLayer/transaction');
 
-router.get("/dashboard", function(req, res) {
-    res.send("Here is the User data you want");
-});
-
+// Add transaction 
 router.post("/addtrans", function(req, res) {
-    res.send("adding data");
+    var transaction = {
+       id : crypto.randomBytes(16).toString("hex"),
+       name : req.body.name,
+       type : req.body.type,
+       price : req.body.price,
+       date : req.body.date,
+       mobile : req.body.mobile,
+    };
+
+    if (transaction.id) {
+        DatabaseClient.AddTrans(transaction, (result) => {
+            res.send(result);
+        });
+    }
+    else {
+        res.send({code: 907, message:"can't preocess data"});
+    }
 });
 
+// Dashboard of a user
+router.get("/usertrans", function(req, res) {
+    DatabaseClient.UserTrans(req.query.mobile, (result) => {
+        res.send(result);
+    })
+});
+
+// Get specific transaction
 router.get("/gettrans", function(req, res) {
-    res.send("Here is the data of the transaction");
+    DatabaseClient.GetTrans(req.query.transid, (result)=> {
+        res.send(result);
+    })
 });
 
 module.exports = router;
