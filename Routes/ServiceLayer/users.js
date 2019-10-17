@@ -27,6 +27,8 @@ router.post("/register", function(req,res) {
         email : req.body.email,
         password : req.body.password,
         currency : req.body.currency,
+        image : req.body.image, 
+        transactions : [],
     };
 
     DatabaseClient.CheckMobile(registerUser.mobileno, (result) => {
